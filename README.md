@@ -64,30 +64,39 @@ Copie `.env.example` para `.env` (já existe um `.env` criado com os dados
 informados) e edite a senha real:
 
 ```env
-FTP_HOST=195.35.41.20
+FTP_HOST=ftp.agenciaautoflow.com.br
 FTP_PORT=21
-FTP_USER=u874685658.agenciaautoflow.com.br
+FTP_USER=u874685658.piolatrafego
 FTP_PASSWORD=coloque_a_senha_real_aqui
 FTP_SECURE=true
-FTP_TLS_REJECT_UNAUTHORIZED=false
-FTP_REMOTE_ROOT=/public_html
+FTP_REMOTE_ROOT=/
 PUBLIC_DOMAIN=https://agenciaautoflow.com.br
 ```
 
+- `FTP_HOST` usa o hostname da conta (`ftp.agenciaautoflow.com.br`), não o IP
+  cru. Isso é importante: o certificado TLS da Hostinger é emitido para esse
+  hostname, não para o IP — conectar pelo IP faz a verificação de certificado
+  falhar com `Hostname/IP does not match certificate's altnames`. Conectando
+  pelo hostname certo, a verificação TLS funciona normalmente (sem precisar
+  relaxar segurança nenhuma).
 - `FTP_SECURE=true` ativa FTPS explícito (AUTH TLS na porta 21), que é o
   protocolo suportado pela Hostinger nessa porta.
-- `FTP_TLS_REJECT_UNAUTHORIZED=false` é necessário porque o certificado TLS
-  da Hostinger nessa conta é emitido para o host compartilhado, não para o
-  IP `195.35.41.20` — com a verificação estrita ligada, a conexão falha com
-  `Hostname/IP does not match certificate's altnames`. A conexão continua
-  criptografada via TLS; só a checagem de identidade do host é relaxada
-  (igual ao que a maioria dos clientes FTP como FileZilla faz ao "aceitar"
-  esse tipo de certificado). Se um dia usar um host que combine com o
-  certificado, pode voltar para `true`.
-- `FTP_REMOTE_ROOT` é a pasta raiz onde as pastas dos clientes serão criadas
-  (`/public_html` por padrão). Ajuste aqui se a conta usar outro diretório.
+- `FTP_USER` é a conta FTP específica desta conta (`u874685658.piolatrafego`),
+  já associada ao domínio `agenciaautoflow.com.br` no hPanel.
+- `FTP_REMOTE_ROOT=/` porque essa conta FTP já entra "presa" (chroot) direto
+  na pasta `public_html` do domínio (o hPanel mostra o diretório completo como
+  `/home/u874685658/domains/agenciaautoflow.com.br/public_html`, que é a raiz
+  que essa conta enxerga como `/`). Se um dia usar uma conta FTP com acesso
+  mais amplo (raiz do servidor), ajuste para `/domains/agenciaautoflow.com.br/public_html`
+  ou o caminho equivalente.
 - `PUBLIC_DOMAIN` é o domínio usado para montar a URL pública gerada após o
   deploy. Ajuste se o domínio principal da hospedagem mudar.
+
+Se algum dia precisar conectar por IP de novo e esbarrar no mesmo erro de
+certificado, existe uma variável de escape `FTP_TLS_REJECT_UNAUTHORIZED=false`
+(desliga a verificação de identidade do certificado, mantendo a conexão
+criptografada) — mas isso é um trade-off de segurança e não deve ser usado
+sem necessidade real.
 
 Instale as dependências (uma vez):
 

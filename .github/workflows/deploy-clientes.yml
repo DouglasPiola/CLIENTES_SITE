@@ -35,13 +35,12 @@ jobs:
 
       - name: Publicar cliente(s) na Hostinger via FTP/FTPS
         env:
-          FTP_HOST: 195.35.41.20
+          FTP_HOST: ftp.agenciaautoflow.com.br
           FTP_PORT: 21
-          FTP_USER: u874685658.agenciaautoflow.com.br
+          FTP_USER: u874685658.piolatrafego
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
           FTP_SECURE: 'true'
-          FTP_TLS_REJECT_UNAUTHORIZED: 'false'
-          FTP_REMOTE_ROOT: /public_html
+          FTP_REMOTE_ROOT: /
           PUBLIC_DOMAIN: https://agenciaautoflow.com.br
         run: |
           set -e
