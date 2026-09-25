@@ -17,7 +17,45 @@ Hostinger.
 4. Ao final, o sistema monta e exibe a URL pública do cliente e faz uma
    checagem HTTP para confirmar que a página está no ar.
 
-## 1. Configuração (uma única vez)
+## 0. Deploy automático via GitHub Actions (recomendado)
+
+O ambiente onde este assistente roda não tem acesso de rede a FTP (só HTTPS),
+então o caminho recomendado é deixar o **GitHub Actions** publicar
+automaticamente sempre que uma pasta de cliente for adicionada/atualizada em
+`clientes/**` e o commit for enviado para o GitHub. O workflow já está em
+`.github/workflows/deploy-clientes.yml`.
+
+### Configuração única: cadastrar a senha como Secret do GitHub
+
+1. No GitHub, abra o repositório → **Settings** → **Secrets and variables** →
+   **Actions** → **New repository secret**.
+2. Nome: `FTP_PASSWORD`
+3. Valor: a senha real da conta FTP da Hostinger.
+4. Salve.
+
+A senha nunca fica no código nem no workflow — o arquivo `.github/workflows/deploy-clientes.yml`
+só referencia `${{ secrets.FTP_PASSWORD }}`, que o GitHub injeta de forma
+criptografada só durante a execução. Host, usuário, porta e domínio não são
+segredos e ficam direto no workflow; só a senha é secreta.
+
+### Como publicar um cliente a partir de agora
+
+- **Automático**: adicione/atualize a pasta `clientes/<slug>/` neste
+  repositório e faça `git push` para a branch `claude/amazing-turing-3twrs6`
+  (ou `main`). O workflow dispara sozinho, publica **todos** os clientes que
+  existem em `clientes/` (o upload é seguro para reexecutar — só sobrescreve,
+  nunca apaga) e mostra o link de cada um no resumo da execução (aba
+  **Actions** do GitHub → a execução → **Summary**).
+- **Manual (sob demanda)**: aba **Actions** → workflow **"Deploy Clientes
+  (Hostinger FTP)"** → **Run workflow**. Deixe o campo `slug` vazio para
+  publicar todos os clientes, ou informe um slug específico (ex:
+  `proposta-cliente`) para publicar só aquele.
+
+Depois disso, o fluxo passa a ser: você me manda a pasta do cliente → eu
+crio/atualizo `clientes/<slug>/` e faço o commit/push → o GitHub Actions
+publica na Hostinger e eu te devolvo o link.
+
+## 1. Configuração para rodar localmente (opcional)
 
 As credenciais ficam **somente** no arquivo `.env` (nunca no código, nunca no
 Git). O `.gitignore` já bloqueia o commit desse arquivo.

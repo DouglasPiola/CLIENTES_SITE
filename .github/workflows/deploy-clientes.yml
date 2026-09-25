@@ -1,0 +1,68 @@
+name: Deploy Clientes (Hostinger FTP)
+
+on:
+  push:
+    branches:
+      - claude/amazing-turing-3twrs6
+      - main
+    paths:
+      - 'clientes/**'
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: 'Slug do cliente a publicar (vazio = publica todos os clientes em clientes/)'
+        required: false
+        type: string
+
+concurrency:
+  group: deploy-clientes
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Publicar cliente(s) na Hostinger via FTP/FTPS
+        env:
+          FTP_HOST: 195.35.41.20
+          FTP_PORT: 21
+          FTP_USER: u874685658.agenciaautoflow.com.br
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_SECURE: 'true'
+          FTP_REMOTE_ROOT: /public_html
+          PUBLIC_DOMAIN: https://agenciaautoflow.com.br
+        run: |
+          set -e
+
+          SLUG_INPUT="${{ github.event.inputs.slug }}"
+          if [ -n "$SLUG_INPUT" ]; then
+            CLIENTS="$SLUG_INPUT"
+          else
+            CLIENTS=$(find clientes -mindepth 1 -maxdepth 1 -type d -printf '%f\n' | sort)
+          fi
+
+          if [ -z "$CLIENTS" ]; then
+            echo "Nenhum cliente encontrado em clientes/."
+            exit 1
+          fi
+
+          echo "## Deploy Hostinger" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+
+          for slug in $CLIENTS; do
+            echo "::group::Publicando $slug"
+            node bin/deploy-cliente.js "$slug"
+            echo "::endgroup::"
+            echo "- **$slug**: https://agenciaautoflow.com.br/$slug/" >> "$GITHUB_STEP_SUMMARY"
+          done
