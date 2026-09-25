@@ -40,6 +40,7 @@ jobs:
           FTP_USER: u874685658.agenciaautoflow.com.br
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
           FTP_SECURE: 'true'
+          FTP_TLS_REJECT_UNAUTHORIZED: 'false'
           FTP_REMOTE_ROOT: /public_html
           PUBLIC_DOMAIN: https://agenciaautoflow.com.br
         run: |

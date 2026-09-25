@@ -69,12 +69,21 @@ FTP_PORT=21
 FTP_USER=u874685658.agenciaautoflow.com.br
 FTP_PASSWORD=coloque_a_senha_real_aqui
 FTP_SECURE=true
+FTP_TLS_REJECT_UNAUTHORIZED=false
 FTP_REMOTE_ROOT=/public_html
 PUBLIC_DOMAIN=https://agenciaautoflow.com.br
 ```
 
 - `FTP_SECURE=true` ativa FTPS explícito (AUTH TLS na porta 21), que é o
   protocolo suportado pela Hostinger nessa porta.
+- `FTP_TLS_REJECT_UNAUTHORIZED=false` é necessário porque o certificado TLS
+  da Hostinger nessa conta é emitido para o host compartilhado, não para o
+  IP `195.35.41.20` — com a verificação estrita ligada, a conexão falha com
+  `Hostname/IP does not match certificate's altnames`. A conexão continua
+  criptografada via TLS; só a checagem de identidade do host é relaxada
+  (igual ao que a maioria dos clientes FTP como FileZilla faz ao "aceitar"
+  esse tipo de certificado). Se um dia usar um host que combine com o
+  certificado, pode voltar para `true`.
 - `FTP_REMOTE_ROOT` é a pasta raiz onde as pastas dos clientes serão criadas
   (`/public_html` por padrão). Ajuste aqui se a conta usar outro diretório.
 - `PUBLIC_DOMAIN` é o domínio usado para montar a URL pública gerada após o

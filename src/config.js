@@ -29,6 +29,7 @@ function loadConfig() {
       user: required('FTP_USER'),
       password: required('FTP_PASSWORD'),
       secure: parseBoolean(process.env.FTP_SECURE, true),
+      rejectUnauthorized: parseBoolean(process.env.FTP_TLS_REJECT_UNAUTHORIZED, true),
       remoteRoot: '/' + stripTrailingSlash(process.env.FTP_REMOTE_ROOT || '/public_html').replace(/^\/+/, ''),
     },
     domain: stripTrailingSlash(process.env.PUBLIC_DOMAIN || 'https://agenciaautoflow.com.br'),
