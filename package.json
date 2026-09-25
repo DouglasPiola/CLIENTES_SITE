@@ -1,0 +1,28 @@
+{
+  "name": "clientes_site",
+  "version": "1.0.0",
+  "description": "Sistema de deploy automatico de paginas de clientes da AutoFlow via FTP/FTPS para a Hostinger.",
+  "main": "src/deploy.js",
+  "bin": {
+    "deploy-cliente": "bin/deploy-cliente.js"
+  },
+  "scripts": {
+    "deploy": "node bin/deploy-cliente.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DouglasPiola/CLIENTES_SITE.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DouglasPiola/CLIENTES_SITE/issues"
+  },
+  "homepage": "https://github.com/DouglasPiola/CLIENTES_SITE#readme",
+  "dependencies": {
+    "basic-ftp": "^6.2.1",
+    "dotenv": "^18.0.4"
+  }
+}
