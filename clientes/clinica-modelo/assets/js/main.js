@@ -46,7 +46,7 @@ const TREATMENTS = [
   {
     id: "harmonizacao-facial", name: "Harmonização Facial", category: "Injetáveis",
     image: "harmonizacao-facial",
-    imageAlt: "Mulher recebendo avaliação facial em consulta de estética",
+    imageAlt: "Profissional em consulta com cliente em consultório de estética",
     short: "Procedimentos combinados para equilibrar proporções do rosto de forma personalizada.",
     what: "Conjunto de técnicas que, a partir de uma avaliação individual, busca equilibrar proporções e contornos da face.",
     indicated: "Pessoas que desejam suavizar assimetrias ou realçar traços, após avaliação profissional.",
@@ -56,7 +56,7 @@ const TREATMENTS = [
   {
     id: "limpeza-de-pele", name: "Limpeza de Pele", category: "Facial",
     image: "limpeza-de-pele",
-    imageAlt: "Profissional realizando limpeza de pele em cliente deitada",
+    imageAlt: "Mulher deitada com creme facial durante limpeza de pele",
     short: "Higienização profunda com extração e hidratação, adaptada ao seu tipo de pele.",
     what: "Procedimento de higienização que remove impurezas e células mortas, finalizado com ativos e proteção.",
     indicated: "Quem busca manutenção da saúde da pele ou apresenta oleosidade, cravos e textura irregular.",
@@ -66,7 +66,7 @@ const TREATMENTS = [
   {
     id: "toxina-botulinica", name: "Toxina Botulínica", category: "Injetáveis",
     image: "toxina-botulinica",
-    imageAlt: "Close do rosto de mulher com pele cuidada",
+    imageAlt: "Mulher recebendo aplicação injetável no queixo",
     short: "Aplicação avaliada caso a caso para suavizar linhas de expressão.",
     what: "Aplicação de toxina botulínica em pontos específicos para relaxar a musculatura responsável por linhas de expressão.",
     indicated: "Adultos com linhas dinâmicas na testa, entre as sobrancelhas e ao redor dos olhos, após avaliação.",
@@ -76,7 +76,7 @@ const TREATMENTS = [
   {
     id: "preenchimento", name: "Preenchimento com Ácido Hialurônico", category: "Injetáveis",
     image: "preenchimento",
-    imageAlt: "Mulher sorrindo durante consulta de estética facial",
+    imageAlt: "Profissional realizando procedimento facial em cliente",
     short: "Reposição de volume e definição de contornos com produtos registrados na Anvisa.",
     what: "Aplicação de ácido hialurônico para repor volume, definir contornos ou hidratar regiões da face.",
     indicated: "Pessoas com perda de volume ou que desejam realçar contornos, mediante avaliação.",
@@ -86,7 +86,7 @@ const TREATMENTS = [
   {
     id: "bioestimuladores", name: "Bioestimuladores de Colágeno", category: "Injetáveis",
     image: "bioestimuladores",
-    imageAlt: "Produtos de skincare organizados sobre bancada clara",
+    imageAlt: "Séruns e cremes de skincare dispostos sobre fundo bege",
     short: "Estímulo à produção natural de colágeno para melhorar a qualidade e firmeza da pele.",
     what: "Substâncias aplicadas na derme que estimulam o organismo a produzir colágeno ao longo das semanas.",
     indicated: "Pessoas com flacidez leve a moderada ou que buscam melhora da qualidade da pele, após avaliação.",
@@ -96,7 +96,7 @@ const TREATMENTS = [
   {
     id: "depilacao-a-laser", name: "Depilação a Laser", category: "Laser",
     image: "depilacao-a-laser",
-    imageAlt: "Equipamento de laser em sala de procedimentos de estética",
+    imageAlt: "Profissional realizando tratamento a laser no braço de cliente",
     short: "Redução progressiva dos pelos com equipamento adequado ao seu fototipo.",
     what: "Tecnologia que atua nos folículos para reduzir os pelos de forma progressiva ao longo das sessões.",
     indicated: "Pessoas que desejam reduzir pelos em diferentes áreas do corpo, após avaliação do fototipo.",
@@ -106,7 +106,7 @@ const TREATMENTS = [
   {
     id: "peeling-quimico", name: "Peeling Químico", category: "Facial",
     image: "peeling-quimico",
-    imageAlt: "Máscara facial sendo aplicada em tratamento de pele",
+    imageAlt: "Mulher aplicando máscara facial em tratamento de pele",
     short: "Renovação superficial da pele com ácidos escolhidos conforme a sua necessidade.",
     what: "Aplicação controlada de ácidos que promove renovação da camada superficial da pele.",
     indicated: "Pessoas com manchas, textura irregular ou sinais de envelhecimento, após avaliação.",
@@ -116,7 +116,7 @@ const TREATMENTS = [
   {
     id: "criolipolise", name: "Criolipólise", category: "Corporal",
     image: "criolipolise",
-    imageAlt: "Ambiente de spa com toalhas e pedras",
+    imageAlt: "Mulher deitada em maca durante massagem em spa",
     short: "Redução de gordura localizada por resfriamento controlado, com indicação profissional.",
     what: "Tecnologia que utiliza resfriamento controlado para atuar em áreas de gordura localizada.",
     indicated: "Pessoas com gordura localizada resistente e peso estável, após avaliação.",
@@ -126,7 +126,7 @@ const TREATMENTS = [
   {
     id: "drenagem-linfatica", name: "Drenagem Linfática", category: "Corporal",
     image: "drenagem-linfatica",
-    imageAlt: "Massagem corporal relaxante em ambiente de spa",
+    imageAlt: "Cliente recebendo massagem nas costas em spa",
     short: "Técnica manual suave que auxilia no bem-estar e na sensação de leveza.",
     what: "Técnica de massagem com movimentos suaves e ritmados, que auxilia no bem-estar corporal.",
     indicated: "Quem busca relaxamento e sensação de leveza, ou como complemento de outros cuidados.",
@@ -148,11 +148,24 @@ const fullAddress = () => { const a = CONFIG.address; return `${a.street}, ${a.d
 /* Fotos: ID do Unsplash por imagem. Se a foto não carregar, usa a ilustração local (assets/img/<nome>.svg).
    Para usar foto própria, troque o valor por um caminho, ex.: "assets/img/limpeza.jpg". */
 const PHOTOS = {
-  "harmonizacao-facial": "1522337360788-8b13dee7a37e", "limpeza-de-pele": "1570172619644-dfd03ed5d881",
-  "toxina-botulinica": "1512290923902-8a9f81dc236c", "preenchimento": "1598440947619-2c35fc9aa908",
-  "bioestimuladores": "1559599101-f09722fb4948", "depilacao-a-laser": "1596755389378-c31d21fd1273",
-  "peeling-quimico": "1487058792275-0ad4aaf24ca7", "criolipolise": "1540555700478-4be289fbecef",
-  "drenagem-linfatica": "1544161515-4ab6ce6db874"
+  "harmonizacao-facial": "1785861001619-b263ebd4e615",
+  "limpeza-de-pele": "1616394584738-fc6e612e71b9",
+  "toxina-botulinica": "1785861084191-3600dfc2a6d6",
+  "preenchimento": "1785860945533-918a531bcdeb",
+  "bioestimuladores": "1748543668709-793b38a2810d",
+  "depilacao-a-laser": "1785861433534-8cd4c7b994fa",
+  "peeling-quimico": "1775642548902-2f60a0aa1405",
+  "criolipolise": "1544161515-4ab6ce6db874",
+  "drenagem-linfatica": "1591343395082-e120087004b4",
+  "espaco-recepcao": "1781967654423-c68058a3f8d2",
+  "espaco-spa": "1761470575018-135c213340eb",
+  "espaco-produtos": "1739980213756-753aea153bb8",
+  "espaco-relax": "1776763018829-ad685e621871",
+  "espaco-sala": "1600334089648-b0d9d3028eb2",
+  "espaco-cabine": "1649751295468-953038600bef",
+  "responsavel": "1638202993928-7267aad84c31",
+  "equipe-2": "1623854767648-e7bb8009f0db",
+  "equipe-3": "1741868159744-159b83484687"
 };
 const photoUrl = (id, w) => PHOTOS[id] ? (/[\/.]/.test(PHOTOS[id]) ? PHOTOS[id] : `https://images.unsplash.com/photo-${PHOTOS[id]}?auto=format&fit=crop&w=${w}&q=80`) : `assets/img/${id}.svg`;
 const IMG = id => `assets/img/${id}.svg`;

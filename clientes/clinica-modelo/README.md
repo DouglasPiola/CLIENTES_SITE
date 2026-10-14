@@ -25,5 +25,5 @@ Crie um formulário em formspree.io e cole o endpoint em **`FORM_ENDPOINT`** (to
 Não incluído. Há um bloco comentado em `index.html` (“ANTES E DEPOIS”) para ativar só após confirmar o que o conselho profissional permite.
 
 ## Observações
-- As fotos são do Unsplash (links externos). Para produção, baixe e hospede em `assets/img/` as imagens que escolher e use fotos reais da clínica.
+- As fotos são do Unsplash (licença gratuita, carregadas por link externo; há crédito “Unsplash” no rodapé). Se uma não carregar, o site mostra automaticamente a ilustração de `assets/img/`. Para produção, baixe e hospede em `assets/img/` as imagens que escolher e use fotos reais da clínica.
 - Textos de depoimentos, números e equipe são **provisórios**.
