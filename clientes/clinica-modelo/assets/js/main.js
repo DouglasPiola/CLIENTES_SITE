@@ -45,7 +45,7 @@ const CONFIG = {
 const TREATMENTS = [
   {
     id: "harmonizacao-facial", name: "Harmonização Facial", category: "Injetáveis",
-    image: "photo-1522337360788-8b13dee7a37e",
+    image: "harmonizacao-facial",
     imageAlt: "Mulher recebendo avaliação facial em consulta de estética",
     short: "Procedimentos combinados para equilibrar proporções do rosto de forma personalizada.",
     what: "Conjunto de técnicas que, a partir de uma avaliação individual, busca equilibrar proporções e contornos da face.",
@@ -55,7 +55,7 @@ const TREATMENTS = [
   },
   {
     id: "limpeza-de-pele", name: "Limpeza de Pele", category: "Facial",
-    image: "photo-1570172619644-dfd03ed5d881",
+    image: "limpeza-de-pele",
     imageAlt: "Profissional realizando limpeza de pele em cliente deitada",
     short: "Higienização profunda com extração e hidratação, adaptada ao seu tipo de pele.",
     what: "Procedimento de higienização que remove impurezas e células mortas, finalizado com ativos e proteção.",
@@ -65,7 +65,7 @@ const TREATMENTS = [
   },
   {
     id: "toxina-botulinica", name: "Toxina Botulínica", category: "Injetáveis",
-    image: "photo-1512290923902-8a9f81dc236c",
+    image: "toxina-botulinica",
     imageAlt: "Close do rosto de mulher com pele cuidada",
     short: "Aplicação avaliada caso a caso para suavizar linhas de expressão.",
     what: "Aplicação de toxina botulínica em pontos específicos para relaxar a musculatura responsável por linhas de expressão.",
@@ -75,7 +75,7 @@ const TREATMENTS = [
   },
   {
     id: "preenchimento", name: "Preenchimento com Ácido Hialurônico", category: "Injetáveis",
-    image: "photo-1598440947619-2c35fc9aa908",
+    image: "preenchimento",
     imageAlt: "Mulher sorrindo durante consulta de estética facial",
     short: "Reposição de volume e definição de contornos com produtos registrados na Anvisa.",
     what: "Aplicação de ácido hialurônico para repor volume, definir contornos ou hidratar regiões da face.",
@@ -85,7 +85,7 @@ const TREATMENTS = [
   },
   {
     id: "bioestimuladores", name: "Bioestimuladores de Colágeno", category: "Injetáveis",
-    image: "photo-1559599101-f09722fb4948",
+    image: "bioestimuladores",
     imageAlt: "Produtos de skincare organizados sobre bancada clara",
     short: "Estímulo à produção natural de colágeno para melhorar a qualidade e firmeza da pele.",
     what: "Substâncias aplicadas na derme que estimulam o organismo a produzir colágeno ao longo das semanas.",
@@ -95,7 +95,7 @@ const TREATMENTS = [
   },
   {
     id: "depilacao-a-laser", name: "Depilação a Laser", category: "Laser",
-    image: "photo-1596755389378-c31d21fd1273",
+    image: "depilacao-a-laser",
     imageAlt: "Equipamento de laser em sala de procedimentos de estética",
     short: "Redução progressiva dos pelos com equipamento adequado ao seu fototipo.",
     what: "Tecnologia que atua nos folículos para reduzir os pelos de forma progressiva ao longo das sessões.",
@@ -105,7 +105,7 @@ const TREATMENTS = [
   },
   {
     id: "peeling-quimico", name: "Peeling Químico", category: "Facial",
-    image: "photo-1487058792275-0ad4aaf24ca7",
+    image: "peeling-quimico",
     imageAlt: "Máscara facial sendo aplicada em tratamento de pele",
     short: "Renovação superficial da pele com ácidos escolhidos conforme a sua necessidade.",
     what: "Aplicação controlada de ácidos que promove renovação da camada superficial da pele.",
@@ -115,7 +115,7 @@ const TREATMENTS = [
   },
   {
     id: "criolipolise", name: "Criolipólise", category: "Corporal",
-    image: "photo-1540555700478-4be289fbecef",
+    image: "criolipolise",
     imageAlt: "Ambiente de spa com toalhas e pedras",
     short: "Redução de gordura localizada por resfriamento controlado, com indicação profissional.",
     what: "Tecnologia que utiliza resfriamento controlado para atuar em áreas de gordura localizada.",
@@ -125,7 +125,7 @@ const TREATMENTS = [
   },
   {
     id: "drenagem-linfatica", name: "Drenagem Linfática", category: "Corporal",
-    image: "photo-1544161515-4ab6ce6db874",
+    image: "drenagem-linfatica",
     imageAlt: "Massagem corporal relaxante em ambiente de spa",
     short: "Técnica manual suave que auxilia no bem-estar e na sensação de leveza.",
     what: "Técnica de massagem com movimentos suaves e ritmados, que auxilia no bem-estar corporal.",
@@ -145,7 +145,7 @@ const safe = {
   lset(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
 };
 const fullAddress = () => { const a = CONFIG.address; return `${a.street}, ${a.district}, ${a.city} - ${a.state}, CEP ${a.zip}`; };
-const IMG = (id, w) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=75`;
+const IMG = id => `assets/img/${id}.svg`;
 const SVG_WA = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2a9.9 9.9 0 0 0-8.45 15.07L2 22l5.05-1.55A9.9 9.9 0 1 0 12.04 2Zm5.8 14.02c-.25.7-1.45 1.34-2 1.4-.5.06-1.13.09-1.82-.12-.42-.13-.96-.31-1.65-.6-2.9-1.25-4.8-4.18-4.95-4.38-.14-.2-1.18-1.57-1.18-3 0-1.43.75-2.13 1.01-2.42.26-.29.57-.36.76-.36l.55.01c.18 0 .42-.07.65.5.25.6.84 2.07.91 2.22.08.15.13.32.03.52-.1.2-.15.32-.3.5-.15.17-.31.38-.44.51-.15.15-.3.31-.13.6.17.3.77 1.27 1.65 2.05 1.13 1 2.09 1.31 2.39 1.46.3.15.47.12.65-.07.17-.2.75-.87.95-1.17.2-.3.4-.25.67-.15.27.1 1.72.81 2.02.96.3.15.5.22.57.35.07.12.07.72-.18 1.42Z"/></svg>';
 
 /* ======================== UTM ======================== */
@@ -199,7 +199,7 @@ function injectJsonLd() {
   const data = {
     "@context": "https://schema.org", "@type": "BeautySalon", name: CONFIG.name, url: CONFIG.siteUrl,
     telephone: "+55" + CONFIG.phone.replace(/\D/g, ""), email: CONFIG.email,
-    image: IMG("photo-1570172619644-dfd03ed5d881", 1200),
+    image: CONFIG.siteUrl + "/assets/img/og.png",
     address: { "@type": "PostalAddress", streetAddress: a.street, addressLocality: a.city, addressRegion: a.state, postalCode: a.zip, addressCountry: "BR" },
     geo: { "@type": "GeoCoordinates", latitude: a.geo.lat, longitude: a.geo.lng },
     openingHours: CONFIG.openingHours,
@@ -377,7 +377,7 @@ function renderTreatments() {
   list.innerHTML = TREATMENTS.map((t, i) => `
     <article class="card treat reveal" id="${t.id}" data-category="${esc(t.category)}">
       <div class="media"><span class="tag">${esc(t.category)}</span>
-        <img src="${IMG(t.image, 640)}" alt="${esc(t.imageAlt)}" width="640" height="480" loading="lazy" decoding="async"></div>
+        <img src="${IMG(t.image, 640)}" alt="Ilustração: ${esc(t.imageAlt)}" width="640" height="480" loading="lazy" decoding="async"></div>
       <div class="card__body">
         <h2 class="h3" style="font-size:1.5rem">${esc(t.name)}</h2>
         <p>${esc(t.short)}</p>
