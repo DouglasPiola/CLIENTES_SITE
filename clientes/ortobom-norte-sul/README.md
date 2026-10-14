@@ -65,14 +65,16 @@ O `<noscript>` do GTM foi omitido de propósito (ele carregaria sem consentiment
 1. **Backup completo antes de tudo:** cPanel → *Backup* → baixe o backup completo, ou *Gerenciador de arquivos* → compacte `public_html` e baixe. Exporte também o banco de dados (phpMyAdmin) e salve o `.htaccess` atual.
 2. **Teste primeiro** (opcional): crie um subdomínio de teste e suba lá os arquivos.
 3. Dentro de `public_html`, mova os arquivos do WordPress para uma pasta de reserva (ex.: `_wp_backup`) em vez de apagar.
-4. Envie **o conteúdo** desta pasta (não a pasta em si) para `public_html`, incluindo o arquivo oculto `.htaccess` (no Gerenciador de arquivos, ative *Mostrar arquivos ocultos*).
+4. Envie **o conteúdo** desta pasta (não a pasta em si) para `public_html`. Depois, apague o `.htaccess` neutro desta pasta e **renomeie `htaccess-producao.txt` para `.htaccess`** (no Gerenciador de arquivos, ative *Mostrar arquivos ocultos*). Só faça isso no domínio real: o arquivo redireciona tudo para `ortobomnortesul.com.br`.
 5. Mantenha os mesmos endereços: `/produtos/`, `/sobre-nos/`, `/contato/`, `/informacoes-de-entrega/`, `/politica-de-privacidade/`, `/termos-de-uso/`.
 6. Teste: `https://ortobomnortesul.com.br`, versão com `www` (deve redirecionar), `http://` (deve ir para https), todas as páginas, formulário, WhatsApp e `/pagina-que-nao-existe` (deve abrir o 404).
 7. Se algum link de anúncio apontar para um endereço que não existe mais, crie um redirecionamento 301 no `.htaccess` ou em cPanel → *Redirecionamentos*.
 8. No Google Search Console, reenvie o `sitemap.xml`.
 9. Se algo der errado: devolva o `.htaccess` e os arquivos do WordPress da pasta de reserva.
 
-Ainda há um `.htaccess` para HTTPS, sem www, compressão e cache; confirme se o SSL do domínio está ativo no cPanel antes de publicar.
+O `htaccess-producao.txt` força HTTPS, remove o www, comprime e faz cache. Confirme se o SSL do domínio está ativo no cPanel antes de publicar.
+
+**Prévia na agência:** o deploy automático publica esta pasta em `https://agenciaautoflow.com.br/ortobom-norte-sul/`. Os caminhos do site são relativos, então funciona na subpasta e na raiz do domínio.
 
 ## 5. Antes de publicar
 
