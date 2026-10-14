@@ -358,3 +358,11 @@ button { font: inherit; color: inherit; cursor: pointer; }
 /* Imagem indisponível: esconde o texto alternativo quebrado, mantendo o fundo em gradiente */
 .media img, .hero__bg img, .avatar img { color: transparent; font-size: 0; }
 .hero__bg img.is-broken, .avatar img.is-broken { opacity: 0; }
+
+.map-placeholder { min-height: 360px; display: grid; place-content: center; justify-items: center; gap: 1rem; text-align: center; padding: 2rem; background: linear-gradient(135deg, var(--c-bg-alt), #E9D8CC); }
+.map-placeholder svg { width: 44px; height: 44px; color: var(--c-gold); }
+.map-placeholder p { margin: 0; font-family: var(--f-title); font-size: 1.4rem; max-width: 24ch; }
+.map-placeholder small { color: var(--c-text-soft); }
+.map-placeholder__actions { display: flex; flex-wrap: wrap; gap: .75rem; justify-content: center; }
+
+.avatar { display: grid; place-items: center; font-family: var(--f-title); font-size: 1.5rem; font-weight: 600; color: #fff; background: linear-gradient(135deg, var(--c-primary), var(--c-primary-dark)); }

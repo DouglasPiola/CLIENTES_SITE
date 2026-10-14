@@ -145,6 +145,16 @@ const safe = {
   lset(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
 };
 const fullAddress = () => { const a = CONFIG.address; return `${a.street}, ${a.district}, ${a.city} - ${a.state}, CEP ${a.zip}`; };
+/* Fotos: ID do Unsplash por imagem. Se a foto não carregar, usa a ilustração local (assets/img/<nome>.svg).
+   Para usar foto própria, troque o valor por um caminho, ex.: "assets/img/limpeza.jpg". */
+const PHOTOS = {
+  "harmonizacao-facial": "1522337360788-8b13dee7a37e", "limpeza-de-pele": "1570172619644-dfd03ed5d881",
+  "toxina-botulinica": "1512290923902-8a9f81dc236c", "preenchimento": "1598440947619-2c35fc9aa908",
+  "bioestimuladores": "1559599101-f09722fb4948", "depilacao-a-laser": "1596755389378-c31d21fd1273",
+  "peeling-quimico": "1487058792275-0ad4aaf24ca7", "criolipolise": "1540555700478-4be289fbecef",
+  "drenagem-linfatica": "1544161515-4ab6ce6db874"
+};
+const photoUrl = (id, w) => PHOTOS[id] ? (/[\/.]/.test(PHOTOS[id]) ? PHOTOS[id] : `https://images.unsplash.com/photo-${PHOTOS[id]}?auto=format&fit=crop&w=${w}&q=80`) : `assets/img/${id}.svg`;
 const IMG = id => `assets/img/${id}.svg`;
 const SVG_WA = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2a9.9 9.9 0 0 0-8.45 15.07L2 22l5.05-1.55A9.9 9.9 0 1 0 12.04 2Zm5.8 14.02c-.25.7-1.45 1.34-2 1.4-.5.06-1.13.09-1.82-.12-.42-.13-.96-.31-1.65-.6-2.9-1.25-4.8-4.18-4.95-4.38-.14-.2-1.18-1.57-1.18-3 0-1.43.75-2.13 1.01-2.42.26-.29.57-.36.76-.36l.55.01c.18 0 .42-.07.65.5.25.6.84 2.07.91 2.22.08.15.13.32.03.52-.1.2-.15.32-.3.5-.15.17-.31.38-.44.51-.15.15-.3.31-.13.6.17.3.77 1.27 1.65 2.05 1.13 1 2.09 1.31 2.39 1.46.3.15.47.12.65-.07.17-.2.75-.87.95-1.17.2-.3.4-.25.67-.15.27.1 1.72.81 2.02.96.3.15.5.22.57.35.07.12.07.72-.18 1.42Z"/></svg>';
 
@@ -189,9 +199,15 @@ function fillConfig() {
     if (url) { el.href = url; el.target = "_blank"; el.rel = "noopener noreferrer"; } else { el.hidden = true; }
   });
   $$("[data-year]").forEach(el => { el.textContent = new Date().getFullYear(); });
-  $$("iframe[data-map]").forEach(f => {
+  const mapUrl = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(fullAddress());
+  $$("[data-map-link]").forEach(a => { a.href = mapUrl; });
+  /* O mapa só é carregado quando a visitante pede (evita cookies do Google sem aviso e falhas de bloqueio). */
+  $$("[data-map-load]").forEach(btn => btn.addEventListener("click", () => {
+    const box = btn.closest("[data-map-box]"); const f = document.createElement("iframe");
+    f.title = "Mapa com a localização da clínica"; f.loading = "lazy"; f.referrerPolicy = "no-referrer-when-downgrade";
     f.src = "https://www.google.com/maps?q=" + encodeURIComponent(fullAddress()) + "&output=embed";
-  });
+    box.replaceChildren(f);
+  }));
 }
 
 function injectJsonLd() {
@@ -318,11 +334,12 @@ function initCounters() {
 
 /* ======================== Imagens com falha ======================== */
 function initImageFallback() {
+  const swap = img => { const fb = img.dataset.fb; if (fb && !img.src.endsWith(fb)) { img.src = fb; } else { img.classList.add("is-broken"); } };
   $$("img").forEach(img => {
-    const mark = () => img.classList.add("is-broken");
-    img.addEventListener("error", mark);
-    if (img.complete && img.naturalWidth === 0 && img.currentSrc) mark();
+    if (img.complete && img.naturalWidth === 0 && img.currentSrc) swap(img);
   });
+  /* imagens criadas depois (lista de tratamentos) */
+  document.addEventListener("error", e => { if (e.target.tagName === "IMG") swap(e.target); }, true);
 }
 
 /* ======================== FAQ ======================== */
@@ -357,7 +374,7 @@ function initLightbox() {
   const img = $("img", dlg), cap = $(".lightbox__caption", dlg);
   const show = i => {
     idx = (i + buttons.length) % buttons.length;
-    const src = buttons[idx].dataset.lightbox; img.src = src; img.alt = buttons[idx].dataset.alt || ""; cap.textContent = img.alt;
+    const src = buttons[idx].dataset.lightbox; img.dataset.fb = buttons[idx].dataset.fb || ""; img.src = src; img.alt = buttons[idx].dataset.alt || ""; cap.textContent = img.alt;
   };
   buttons.forEach((b, i) => b.addEventListener("click", () => { opener = b; show(i); dlg.showModal(); }));
   $(".lightbox__close", dlg).addEventListener("click", () => dlg.close());
@@ -377,7 +394,7 @@ function renderTreatments() {
   list.innerHTML = TREATMENTS.map((t, i) => `
     <article class="card treat reveal" id="${t.id}" data-category="${esc(t.category)}">
       <div class="media"><span class="tag">${esc(t.category)}</span>
-        <img src="${IMG(t.image, 640)}" alt="Ilustração: ${esc(t.imageAlt)}" width="640" height="480" loading="lazy" decoding="async"></div>
+        <img src="${photoUrl(t.image, 640)}" data-fb="${IMG(t.image)}" alt="${esc(t.imageAlt)}" width="640" height="480" loading="lazy" decoding="async"></div>
       <div class="card__body">
         <h2 class="h3" style="font-size:1.5rem">${esc(t.name)}</h2>
         <p>${esc(t.short)}</p>
