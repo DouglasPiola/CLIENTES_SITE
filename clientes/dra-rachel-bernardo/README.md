@@ -9,7 +9,6 @@ Ver localmente: `cd clientes/dra-rachel-bernardo && python3 -m http.server 8080`
 - `GTM_ID`: vazio de propósito. O site atual usa `GTM-TDTT6NVK`; preencher só ao publicar de verdade.
 
 ## Pendências
-- Foto retrato da Dra. Rachel: salvar como `assets/img/dra-rachel.jpg` (4:5). Sem ela aparece o monograma.
 - Imagens (consultório, blog, hero) estão apontando para o site atual (hotlink). Baixar para `assets/img/` antes de publicar.
 - Número do CRO / responsável técnico (rodapé, marcado "a confirmar").
 - Confirmar texto das técnicas RB Wires / RB Lips e dos cursos com a Dra. (copiado do que o site atual diz, sem detalhes).
