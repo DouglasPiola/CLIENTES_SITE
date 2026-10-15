@@ -1,0 +1,3 @@
+# Proposta de redesign (demonstracao) - nao indexar
+User-agent: *
+Disallow: /
